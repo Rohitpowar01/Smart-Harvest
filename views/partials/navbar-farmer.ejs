@@ -1,0 +1,122 @@
+<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg bg-default navbar-light position-sticky top-0 shadow py-0">
+  <div class="container-fluid">
+    <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+      <li class="nav-item dropdown">
+        <a href="/farmer/dashboard" class="navbar-brand mr-lg-5 text-white">
+          <img src="/assets/img/nav.png" alt="Smart Harvest" />
+        </a>
+      </li>
+    </ul>
+
+    <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbar_global"
+      aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon text-white"></span>
+    </button>
+
+    <div class="navbar-collapse collapse bg-default" id="navbar_global">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-10 collapse-brand">
+            <a href="/farmer/dashboard">
+              <img src="/assets/img/nav.png" alt="Logo" />
+            </a>
+          </div>
+          <div class="col-2 collapse-close bg-danger">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global"
+              aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+              <span></span><span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav align-items-lg-center ml-auto topnav" id="nav">
+        <li class="nav-item" id="prediction">
+          <div class="dropdown show">
+            <a class="nav-link dropdown-toggle text-white <%= current === 'prediction' ? 'activa' : '' %>" href="#"
+              role="button" id="predictionMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="text-white nav-link-inner--text"><i class="fas fa-magic"></i> Prediction</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="predictionMenu">
+              <a class="dropdown-item" href="/farmer/fcrop_prediction">Crop Prediction</a>
+              <a class="dropdown-item" href="/farmer/fyield_prediction">Yield Prediction</a>
+              <a class="dropdown-item" href="/farmer/frainfall_prediction">Rainfall Prediction</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item" id="recommendation">
+          <div class="dropdown show">
+            <a class="nav-link dropdown-toggle text-white <%= current === 'recommendation' ? 'activa' : '' %>" href="#"
+              role="button" id="recommendationMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="text-white nav-link-inner--text"><i class="fas fa-gavel"></i> Recommendation</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="recommendationMenu">
+              <a class="dropdown-item" href="/farmer/fcrop_recommendation">Crop Recommendation</a>
+              <a class="dropdown-item" href="/farmer/ffertilizer_recommendation">Fertilizer Recommendation</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item" id="trade">
+          <div class="dropdown show">
+            <a class="nav-link dropdown-toggle text-white <%= current === 'trade' ? 'activa' : '' %>" href="#"
+              role="button" id="tradeMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="text-white nav-link-inner--text"><i class="fas fa-shopping-cart"></i> Trade</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="tradeMenu">
+              <a class="dropdown-item" href="/farmer/ftradecrops">Trade Crops</a>
+              <a class="dropdown-item" href="/farmer/fstock_crop">Crop Stocks</a>
+              <a class="dropdown-item" href="/farmer/fselling_history">Selling History</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item" id="tools">
+          <div class="dropdown show">
+            <a class="nav-link dropdown-toggle text-white <%= current === 'tools' ? 'activa' : '' %>" href="#"
+              role="button" id="toolsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="text-white nav-link-inner--text"><i class="fas fa-gear"></i> Tools</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="toolsMenu">
+              <a class="dropdown-item" href="/farmer/fweather_prediction"><i class="fas fa-cloud text-dark"></i> Weather Forecast</a>
+              <a class="dropdown-item" href="/farmer/fnewsfeed"><i class="fas fa-newspaper text-dark"></i> News Feed</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item" id="profile">
+          <a href="/farmer/dashboard" class="nav-link">
+            <span class="text-white nav-link-inner--text font-weight-bold">
+              <i class="fas fa-user text-white"></i> <%= farmer.farmer_name %>
+            </span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/farmer/logout" class="nav-link">
+            <span class="text-white nav-link-inner--text font-weight-bold">
+              <i class="fas fa-power-off text-danger"></i> Logout
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .topnav a {
+    border-bottom: 3px solid transparent;
+  }
+  .topnav a:hover {
+    border-bottom: 3px solid red;
+  }
+  .topnav a.activa {
+    border-bottom: 3px solid red;
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>

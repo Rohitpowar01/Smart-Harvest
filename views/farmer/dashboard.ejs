@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="../assets/img/logo.png" />
+    <title>Smart Harvest - Farmer</title>
+
+  <!--     Fonts and icons     -->
+  
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+	
+	<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css "/>
+	
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+
+  <!-- Data Tables -->	
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+		
+
+  <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
+
+
+<script src="../assets/js/state_district_crops_dropdown.js"></script>
+
+
+<body class="bg-white" id="top">
+    <!-- Need to improve this navbar -->
+  <%- include('../partials/navbar-farmer')  %>
+    
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 shape-primary">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+<!-- Navigation Bar -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card bg-warning">
+        <div class="card-body text-center">
+          <img src="/assets/img/agri.png" class="rounded-circle" width="150" />
+          <h4>Welcome <%= farmer.farmer_name %></h4>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#editProfile">Edit Profile</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <p><strong>Farmer ID:</strong> <%= farmer.farmer_id %></p>
+          <p><strong>Name:</strong> <%= farmer.farmer_name %></p>
+          <p><strong>Email:</strong> <%= farmer.email %></p>
+          <p><strong>Phone:</strong> <%= farmer.phone_no %></p>
+          <p><strong>Gender:</strong> <%= farmer.F_gender %></p>
+          <p><strong>DOB:</strong> <%= farmer.F_birthday %></p>
+          <p><strong>Bank Name:</strong> <%= farmer.bank_nm %></p>
+          <p><strong>IFSC Code:</strong> <%= farmer.ifsc_cd %></p>
+          <p><strong>Account No:</strong> ********</p>
+          <p><strong>State:</strong> <%= farmer.F_State %></p>
+          <p><strong>District:</strong> <%= farmer.F_District %></p>
+          <p><strong>City:</strong> <%= farmer.F_Location %></p>
+          <p><strong>Password:</strong> ********</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content bg-gradient-danger text-white">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Profile</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="/farmer/update-profile">
+        <div class="modal-body">
+          <input type="hidden" name="id" value="<%= farmer.farmer_id %>">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="<%= farmer.farmer_name %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" value="<%= farmer.email %>" class="form-control" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Mobile</label>
+            <input type="text" name="mobile" value="<%= farmer.phone_no %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label>
+            <select name="gender" class="form-control">
+              <option selected><%= farmer.F_gender %></option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>DOB</label>
+            <input type="date" name="dob" value="<%= farmer.F_birthday %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Bank Name</label>
+            <input type="text" name="bank_nm" value="<%= farmer.bank_nm %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>IFSC Code</label>
+            <input type="text" name="ifsc_cd" value="<%= farmer.ifsc_cd %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Account Number</label>
+            <input type="number" name="acct_num" value="<%= farmer.acct_num %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>State</label>
+            <select name="state" id="state" class="form-control" onchange="getDistricts(this.value)">
+              <option value="<%= farmer.F_State %>"><%= farmer.F_State %></option>
+              <% states.forEach(state => { %>
+                <option value="<%= state.StCode %>"><%= state.StateName %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>District</label>
+            <select name="district" id="district-list" class="form-control">
+              <option value="<%= farmer.F_District %>"><%= farmer.F_District %></option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" name="city" value="<%= farmer.F_Location %>" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="pass" value="<%= farmer.password %>" class="form-control" id="password">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success btn-block" type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function getDistricts(stateId) {
+    $.post('/farmer/get-district', { state_id: stateId }, function (data) {
+      $('#district-list').html(data);
+    });
+  }
+
+  function password_show_hide() {
+    const x = document.getElementById("password");
+    const show_eye = document.getElementById("show_eye");
+    const hide_eye = document.getElementById("hide_eye");
+    hide_eye.classList.remove("d-none");
+
+    if (x.type === "password") {
+      x.type = "text";
+      show_eye.style.display = "none";
+      hide_eye.style.display = "block";
+    } else {
+      x.type = "password";
+      show_eye.style.display = "block";
+      hide_eye.style.display = "none";
+    }
+  }
+</script>

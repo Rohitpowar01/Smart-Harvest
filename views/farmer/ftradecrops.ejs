@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="../assets/img/logo.png" />
+  <title>Smart Harvest - Farmer Trade</title>
+
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css"/>
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+
+  <!-- Data Tables -->  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+  <link rel="stylesheet" href="../assets/css/creativetim.min.css" type="text/css">
+</head>
+
+<body class="bg-white" id="top">
+  <%- include('../partials/navbar') %>
+    
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 shape-primary">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+          <span class="badge badge-danger badge-pill mb-3">Trade</span>
+        </div>
+      </div>
+
+      <div class="row row-content">
+        <div class="col-md-12 mb-3">
+          <div class="card text-white bg-gradient-success mb-3">
+            <div class="card-header">
+              <span class="text-success display-4">Update Crop Stock</span>
+            </div>
+            <div class="card-body text-dark">
+
+              <!-- Success Alert -->
+              <% if (success) { %>
+                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                  <strong class="text-center text-dark">
+                    <% if (success === 'crop_added') { %>
+                      Crop Details Added Successfully
+                    <% } %>
+                  </strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <% } %>
+
+              <!-- Error Alert -->
+              <% if (error) { %>
+                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                  <strong class="text-center text-dark">
+                    <% if (error === 'cost_exceeds_market_price') { %>
+                      Error: Cost per kg exceeds the market price
+                    <% } else if (error === 'crop_not_found') { %>
+                      Error: Crop not found in market data
+                    <% } else { %>
+                      An error occurred. Please try again.
+                    <% } %>
+                  </strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <% } %>
+
+              <!-- Price Info Alert -->
+              <div class="alert alert-info alert-dismissible fade show text-center" style="display: none;" id="popup" role="alert">
+                <strong class="text-center text-dark">
+                  Current Market Avg Price for <span id="crop"></span> is: ₹<span id="price"></span>/kg
+                </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form role="form" onsubmit="return validateForm()" id="sellcrops" action="/farmer/ftradecrops" method="POST">
+                <table class="table table-striped table-hover table-bordered bg-gradient-white text-center display" id="myTable">
+                  <thead>
+                    <tr class="font-weight-bold text-default">
+                      <th><center>Crop Name</center></th>
+                      <th><center>Quantity (in KG)</center></th>
+                      <th><center>Cost borne by farmer per KG (in Rs)</center></th>
+                      <th><center>Upload CROP Details</center></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="text-center">
+                      <td>
+                        <div class="form-group">
+                          <select id="crops" name="crops" class="form-control" required>
+                            <option value="">Select Crop</option>
+                            <option value="arhar">Arhar</option>
+                            <option value="bajra">Bajra</option>
+                            <option value="barley">Barley</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="gram">Gram</option>
+                            <option value="jowar">Jowar</option>
+                            <option value="jute">Jute</option>
+                            <option value="lentil">Lentil</option>
+                            <option value="maize">Maize</option>
+                            <option value="moong">Moong</option>
+                            <option value="ragi">Ragi</option>
+                            <option value="rice">Rice</option>
+                            <option value="soyabean">Soyabean</option>
+                            <option value="urad">Urad</option>
+                            <option value="wheat">Wheat</option>
+                          </select>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" name="trade_farmer_cropquantity" min="100" required class="form-control required">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input type="number" name="trade_farmer_cost" id="trade_farmer_cost" required class="form-control required">
+                        </div>
+                      </td>
+                      <td>
+                        <center>
+                          <button type="submit" name="Crop_submit" value="Crop_submit" class="btn btn-success">Submit</button>
+                        </center>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../partials/footer') %>
+
+  <!-- scripts: jQuery first, then bootstrap bundle -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    document.getElementById("crops").addEventListener("change", function() {
+      var crops = $('#crops').val();
+      if (document.getElementById("crop")) {
+        document.getElementById("crop").innerHTML = crops;
+      }
+
+      $.ajax({
+        url: '/farmer/ftradecrops/price',
+        type: 'POST',
+        data: { crops: crops },
+        success: function(response) {
+          $('#price').text(response);
+          $("#popup").css({'display':'block'});
+        },
+        error: function() {
+          alert('Error fetching price data');
+        }
+      });
+    });
+
+    function validateForm() {
+      var quantity = document.forms["sellcrops"]["trade_farmer_cropquantity"].value;
+      if (quantity < 100) {
+        alert("Quantity must be at least 100.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

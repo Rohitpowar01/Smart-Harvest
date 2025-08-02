@@ -1,0 +1,52 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="/assets/img/nav.png" alt="Smart Harvest Logo" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
+      aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar_global">
+      <ul class="navbar-nav ml-auto">
+
+        <!-- Contact -->
+        <li class="nav-item">
+          <a href="/contact" class="nav-link">
+            <i class="fas fa-address-card"></i> Contact
+          </a>
+        </li>
+
+        <!-- Sign Up Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="signupDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </a>
+          <div class="dropdown-menu" aria-labelledby="signupDropdown">
+            <a class="dropdown-item" href="/farmer/register">Farmer</a>
+            <a class="dropdown-item" href="/customer/register">Customer</a>
+          </div>
+        </li>
+
+        <!-- Login Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </a>
+          <div class="dropdown-menu" aria-labelledby="loginDropdown">
+            <a class="dropdown-item" href="/farmer/login">Farmer</a>
+            <a class="dropdown-item" href="/customer/login">Customer</a>
+            <a class="dropdown-item" href="/admin/login">Admin</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Bootstrap JS Dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
